@@ -27,9 +27,10 @@ sudo mkdir -p /tmp/liveusb
 sudo mount /dev/loop5p1 /tmp/liveusb
 # grub-install creates EFI/Boot directories, use lowercase in advance
 sudo mkdir -p /tmp/liveusb/efi/boot
+sudo mkdir -p /tmp/liveusb/grub
 #sudo grub-install --target=i386-pc --boot-directory=/tmp/liveusb /dev/loop5
 #sudo grub-install --target=x86_64-efi --uefi-secure-boot --efi-directory=/tmp/liveusb --boot-directory=/tmp/liveusb /dev/loop5
-sudo grub-install --target=x86_64-efi --removable --efi-directory=/tmp/liveusb/efi --boot-directory=/tmp/liveusb /dev/loop5
+sudo grub-install --target=x86_64-efi --removable --efi-directory=/tmp/liveusb/  
 sudo cp --preserve=timestamps grub.cfg /tmp/liveusb/grub/
 #sudo mkdir /tmp/liveusb/liveusb
 #sudo mount /dev/loop5p2 /tmp/liveusb/liveusb
