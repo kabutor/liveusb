@@ -13,7 +13,9 @@ To create the liveusb drive under Linux, run the efiliveusb.sh as root
 ```shell
 sudo efiliveusb.sh
 ```
-This will create a boot partition and a secondary partition (labeled ISOs) where you should place the iso you want to boot. 
+This will ask for the pendrive device (ie: */dev/sdb*) that is gonna be deleted, and then create a boot partition and a secondary partition (labeled ISOs) where you should place the iso you want to boot. 
+**All the contents of that device will be deleted, be careful!!**
+
 If you want to use debian just copy debian-live-11.6.0-amd64-cinnamon.iso into the debian directory in the ISOs partition.
 
 At this moment this is only tested with debian, ubuntu and clonezilla, but you can edit grub.cfg to make others boot, bear in mind that if secure boot is enabled, only the distributions with a signed kernel will boot (that's a security requisite).
