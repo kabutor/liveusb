@@ -38,6 +38,9 @@ sdX2
 └── clonezilla
 
 ```
+## Versions
+v1 - Initial version, tested, but probably some bugs here and there (20221230)
+
 ## Licenses
 The files hosted here from another distribution are under their own licenses:
 Grubx64.efi:
