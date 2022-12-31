@@ -18,7 +18,6 @@ if [ -z "$usb" ]; then
 	fi	
 fi
 
-#abort if error
 
 echo "Are you sure you want to delete ${usbdrive}? All data will be lost "
 read -p " [y/n] " ans
@@ -32,6 +31,7 @@ isos_unit=${usbdrive}2
 
 umount ${usbdrive}*
 
+#abort if error from here on
 set -e 
 
 sgdisk --zap-all ${usbdrive}
@@ -61,18 +61,15 @@ temp_mnt="$(mktemp -d)"
 mount $boot_unit $temp_mnt
 # grub-install creates EFI/Boot directories, use lowercase in advance
 mkdir -p ${temp_mnt}/efi/boot
-#sudo grub-install --target=i386-pc --boot-directory=/tmp/liveusb /dev/loop5
-#sudo grub-install --target=x86_64-efi --uefi-secure-boot --efi-directory=/tmp/liveusb --boot-directory=/tmp/liveusb /dev/loop5
 grub-install --target=x86_64-efi --removable --efi-directory=$temp_mnt --boot-directory=$temp_mnt 
 mkdir ${temp_mnt}/efi/debian
 cp --preserve=timestamps grub_efi.cfg ${temp_mnt}/efi/debian/grub.cfg
-#sudo mkdir /tmp/liveusb/liveusb
-#sudo mount /dev/loop5p2 /tmp/liveusb/liveusb
+
 cp shimx64.efi ${temp_mnt}/efi/boot/bootx64.efi
 cp grubx64.efi.signed ${temp_mnt}/efi/boot/grubx64.efi
 cp grubenv ${temp_mnt}/efi/debian/
 cd $temp_mnt
-#sudo mkdir -p clonezilla debian efi fedora kali linux16 manjaro memdisk opensuse ubuntu
+
 # Ordered by target name
 wget -nv "https://boot.ipxe.org/ipxe.efi" -O efi/ipxe.efi
 wget -nv "https://github.com/tianocore/edk/raw/master/Other/Maintained/Application/UefiShell/bin/x64/Shell.efi" -O efi/shellx64.efi
