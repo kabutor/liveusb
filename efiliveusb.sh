@@ -1,7 +1,6 @@
 #!/bin/sh
 #
 
-set -e 
 
 lsblk 2>/dev/null
 echo "Type your pendrive unit (ex: /dev/sdg /dev/sdc not the partition)"
@@ -10,25 +9,32 @@ read usbdrive 2>/dev/tty
 #copied from https://github.com/notthebee/macos_usb/blob/master/macos_usb.sh
 usb="$(readlink /sys/block/$(echo ${usbdrive} | sed 's/^\/dev\///') | grep -o usb)"
 if [ -z "$usb" ]; then
-	echo "WARNING! ${flashdrive} is NOT a USB device"
+	echo "WARNING! ${usbdrive} is NOT a USB device"
 	echo "Are you sure you know what you're doing?"
-	read -p " [Y/N] " answer 2>/dev/tty
-	if [[ ! $answer =~ ^[Yy]$ ]]; then
+	read -p " [y/n] " answer 
+	if [ ! $answer = "y" ]; then
 		echo "Abort"
 		exit 0
 	fi	
 fi
 
-echo "Are you sure you want to delete ${usbdrive}? All data will be lost"
-read -p " [Y/N] " answer 2>/dev/tty
-if [[ ! $answer =~ ^[Yy]$ ]];
-then
+#abort if error
+
+echo "Are you sure you want to delete ${usbdrive}? All data will be lost "
+read -p " [y/n] " ans
+if [ ! "$ans" = "y" ]; then
 	echo "Abort"
 	exit 0
 fi
 
 boot_unit=${usbdrive}1
 isos_unit=${usbdrive}2
+
+umount ${usbdrive}*
+
+set -e 
+
+sgdisk --zap-all ${usbdrive}
 
 echo "Making partitions on the pendrive"
 parted $usbdrive <<EOF
