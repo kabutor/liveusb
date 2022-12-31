@@ -19,6 +19,14 @@ if [ -z "$usb" ]; then
 	fi	
 fi
 
+echo "Are you sure you want to delete ${usbdrive}? All data will be lost"
+read -p " [Y/N] " answer 2>/dev/tty
+if [[ ! $answer =~ ^[Yy]$ ]];
+then
+	echo "Abort"
+	exit 0
+fi
+
 boot_unit=${usbdrive}1
 isos_unit=${usbdrive}2
 
