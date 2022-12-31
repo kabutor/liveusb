@@ -68,13 +68,10 @@ cp --preserve=timestamps grub_efi.cfg ${temp_mnt}/efi/debian/grub.cfg
 cp shimx64.efi ${temp_mnt}/efi/boot/bootx64.efi
 cp grubx64.efi.signed ${temp_mnt}/efi/boot/grubx64.efi
 cp grubenv ${temp_mnt}/efi/debian/
-cd $temp_mnt
 
-# Ordered by target name
-wget -nv "https://boot.ipxe.org/ipxe.efi" -O efi/ipxe.efi
-wget -nv "https://github.com/tianocore/edk/raw/master/Other/Maintained/Application/UefiShell/bin/x64/Shell.efi" -O efi/shellx64.efi
+wget -nv "https://boot.ipxe.org/ipxe.efi" -O ${temp_mnt}/efi/ipxe.efi
+wget -nv "https://github.com/tianocore/edk/raw/master/Other/Maintained/Application/UefiShell/bin/x64/Shell.efi" -O ${temp_mnt}/efi/shellx64.efi
 
-cd -
 umount $temp_mnt 
 
 mount $isos_unit $temp_mnt
