@@ -88,9 +88,11 @@ image signature certificates:
    issuer:  /C=GB/ST=Isle of Man/L=Douglas/O=Canonical Ltd./CN=Canonical Ltd. Master Certificate Authority
 ```
 
-This works, and in some cases you can mix a ubuntu kernel with a debian signed grubx64.efi, but I realized that in some cases you can't, all the boot chain has to signed by the same, I guess some old flaky UEFI misbehave. My attempts to self-sign a Kali haven't worked, maybe those were badly done, but I can only boot signed kernels, the ones I tried from Debian or Canonical (clonezilla livecd has a debian signed kernel) works. 
+This works, and in some cases you can mix a ubuntu kernel with a debian signed grubx64.efi, but I realized that in some cases you can't, all the boot chain has to signed by the same, I guess some old flaky UEFI misbehave and are more forgiven abouth the whole chain boot load. Best option, and the one that always works is both kernel and grub to be signed from the same certificate authority. 
 
-I'm doing for me a Live Ubuntu CD Custom following this guide, and it's booting (https://help.ubuntu.com/community/LiveCDCustomization), as long as you supply a signed kernel the rest of the contents doesn't matter.
+At this moment I'm wondering if I can create my own certificate and sign both grub and a kernel, for the moment my attempts to self-sign a Kali haven't worked, maybe I'm doing something wrong, or I need to have have some root certificate I don't have.
+
+I'm doing for me a Live Ubuntu CD Custom following this guide, and it's booting (https://help.ubuntu.com/community/LiveCDCustomization), as long as you supply a signed kernel, or use the one that cames with the livecd, the rest of the contents doesn't matter.
 
 Love to have some answers, but the documentation about the subject is a bit scarce, hence this section. If you want to try different distributions, first mount the live iso and check if the kernel is signed, if it's not signed, computer will not boot (unless you disable secure boot, that is out of the scope of this repo)
 
