@@ -101,8 +101,21 @@ v2 - Changed to default Ubuntu
 v1 - Initial version, tested, but probably some bugs here and there (20221230)
 
 ## Licenses
+
 The files hosted here from another distribution are under their own licenses:
-Grubx64.efi:
+
+
+Grubx64.ubuntu.efi:
+Upstream-Name: GNU GRUB
+Source: http://www.gnu.org/software/grub/
+Comment:
+ This package exists to download a signed binary from the Ubuntu archive and
+ publish it in .deb format.  The actual bootloader source code may be found
+ in the grub2 source package: 'apt-get source grub2'.
+Files: *
+Copyright: 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Free Software Foundation, Inc
+License: GPL-3+
+Grubx64.debian.efi:
 Files: debian/rules
 Copyright: 2018 Philipp Matthias Hahn <pmhahn@debian.org>
 License: GPL-2
