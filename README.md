@@ -57,6 +57,8 @@ image signature certificates:
    issuer:  /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Corporation UEFI CA 2011
  - subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Corporation UEFI CA 2011
    issuer:  /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Corporation Third Party Marketplace Root
+   
+   
 $─# sbverify --list grubx64.efi.ubuntu.signed 
 signature 1
 image signature issuers:
@@ -95,6 +97,7 @@ Love to have some answers, but the documentation about the subject is a bit scar
 
 ## Versions
 v2 - Changed to default Ubuntu
+
 v1 - Initial version, tested, but probably some bugs here and there (20221230)
 
 ## Licenses
