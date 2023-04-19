@@ -1,7 +1,7 @@
 #!/bin/sh
 # v2 script version
 # change to debian if you want to use a debian distribution
-distribution="ubuntu"
+distribution="debian"
 
 lsblk 2>/dev/null
 echo "Type your pendrive unit (ex: /dev/sdg /dev/sdc not the partition)"
@@ -66,7 +66,7 @@ grub-install --target=x86_64-efi --removable --efi-directory=$temp_mnt --boot-di
 mkdir ${temp_mnt}/efi/${distribution}
 cp --preserve=timestamps grub_efi.cfg ${temp_mnt}/efi/${distribution}/grub.cfg
 
-cp shimx64.efi ${temp_mnt}/efi/boot/bootx64.efi
+cp shimx64_${distribution}.efi ${temp_mnt}/efi/boot/bootx64.efi
 cp grubx64.efi.${distribution}.signed ${temp_mnt}/efi/boot/grubx64.efi
 cp grubenv ${temp_mnt}/efi/${distribution}/
 
