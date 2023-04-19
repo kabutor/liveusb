@@ -1,5 +1,5 @@
 #!/bin/sh
-# v2 script version
+# v3 script version
 # change to debian if you want to use a debian distribution
 distribution="ubuntu"
 
