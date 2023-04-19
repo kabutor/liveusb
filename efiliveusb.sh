@@ -1,7 +1,7 @@
 #!/bin/sh
 # v2 script version
 # change to debian if you want to use a debian distribution
-distribution="debian"
+distribution="ubuntu"
 
 lsblk 2>/dev/null
 echo "Type your pendrive unit (ex: /dev/sdg /dev/sdc not the partition)"
