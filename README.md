@@ -9,7 +9,7 @@ The main idea is that you this script will create a pendrive (or any external me
 
 ## Linux instructions
 
-To create the liveusb drive under Linux, clone the repository and run the efiliveusb.sh as root
+To create the liveusb drive under Linux, clone the repository and run the efiliveusb.sh as root. You can change the line at the beggining that contains distribution="ubuntu" and change it to "debian" if you plan to use it instead of ubuntu
 
 ```shell
 sudo sh efiliveusb.sh
@@ -20,7 +20,7 @@ This will ask for the pendrive device (ie: */dev/sdb*) that is gonna be deleted,
 
 The mount the second partition called "ISOs" and copy the Ubuntu iso live cd (ubuntu-22.04.1-desktop-amd64.iso) into the ubuntu folder. If you want to use debian just copy debian-live-11.6.0-amd64-cinnamon.iso into the debian directory in the ISOs partition.
 
-At this moment this is only tested with ubunut, debian and clonezilla, but you can edit grub.cfg to make others boot, bear in mind that if secure boot is enabled, only the distributions with a signed kernel will boot (that's a security requisite). More about this below.
+At this moment this is only tested with ubuntu, debian and clonezilla (you should use the debian option in the first line of the sh file as clonezilla is a derived version of debian), but you can edit grub.cfg to make others boot, bear in mind that if secure boot is enabled, only the distributions with a signed kernel will boot (that's a security requisite). More about this below.
 
 The files on the pendrive should be something like this
 
@@ -43,11 +43,15 @@ sdX2
 ```
 ## EFI Secure Boot
 
-Some theory about secure boot, the way it works (AFAIK) a signed efi file is needed in order to boot the computer, the shimx64.efi was signed by Microsoft and it's the first thing needed to boot. Then it passes to the grubx64.efi, that needs to be signed as well, you can use sbverify from sbsigntools to check the signature.
+Some theory about secure boot, the way it works (AFAIK) a signed efi file is needed in order to boot the computer, the shimx64.efi was signed by Microsoft and it's the first thing needed to boot. Also shimx64.efi are signed by each distribution, canonical or debian. While testing I can say that with old more laxes UEFIs it doesn't matter the shim you are using, on more modern, more robust UEFIs you need the shim of the distribution you are booting, as those are also signed by them.
+Then it passes to the grubx64.efi, that needs to be signed as well, you can use sbverify from sbsigntools to check the signature.
 In this repo I am using the next files:
 
 ```
-$ sbverify --list shimx64.efi 
+(the shim signature is the same but not the internal certificate)
+
+
+$ sbverify --list shimx64_{debian/ubuntu}.efi 
 warning: data remaining[809336 vs 934240]: gaps between PE/COFF sections?
 signature 1
 image signature issuers:
@@ -57,7 +61,7 @@ image signature certificates:
    issuer:  /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Corporation UEFI CA 2011
  - subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Corporation UEFI CA 2011
    issuer:  /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Corporation Third Party Marketplace Root
-   
+  
    
 $─# sbverify --list grubx64.efi.ubuntu.signed 
 signature 1
@@ -98,6 +102,7 @@ Love to have some answers, but the documentation about the subject is a bit scar
 
 
 ## Versions
+v3 - Using the shim of each distribution
 v2 - Changed to default Ubuntu
 
 v1 - Initial version, tested, but probably some bugs here and there (20221230)
